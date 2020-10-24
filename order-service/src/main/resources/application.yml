@@ -1,0 +1,30 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/tx-lcn-service?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=true&serverTimezone=UTC
+      password: root
+      username: root
+
+
+ribbon:
+  #指的是建立连接所用的时间，适用于网络状况正常的情况下,两端连接所用的时间
+  ReadTimeout: 10000
+  #指的是建立连接后从服务器读取到可用资源所用的时间
+  ConnectTimeout: 10000
+
+tx-lcn:
+  client:
+    manager-address: localhost:8070 #指定TM端口 集群向后逗号分隔
+  ribbon:
+    loadbalancer:
+      dtx:
+        enabled: true                  #开启启动LCN负载均衡策略
